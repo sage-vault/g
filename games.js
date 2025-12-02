@@ -119,4 +119,4 @@ window.addEventListener('load', function() {
     }
 });
 
-console.log('games.js loaded successfully!');
+console.log('games.js loaded');
