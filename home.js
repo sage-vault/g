@@ -13,7 +13,7 @@ function getGreeting() {
     const hour = new Date().getHours();
     
     if (hour >= 5 && hour < 12) {
-        return 'Good morning!';
+        return 'Good morning, u love school dont u!';
     } else if (hour >= 12 && hour < 17) {
         return 'Good afternoon!';
     } else if (hour >= 17 && hour < 21) {
