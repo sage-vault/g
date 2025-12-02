@@ -1,0 +1,476 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0a;
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* Welcome Screen */
+#welcomeScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s;
+}
+
+#welcomeScreen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.welcome-title {
+    font-size: 42px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 40px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.typewriter {
+    border-right: 4px solid #fff;
+    animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 50% { border-color: #fff; }
+    51%, 100% { border-color: transparent; }
+}
+
+.welcome-buttons {
+    display: flex;
+    gap: 20px;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.welcome-buttons.show {
+    animation: popIn 0.5s forwards;
+}
+
+@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.enter-btn, .aboutblank-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 15px 40px;
+    background: #fff;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.enter-btn:hover, .aboutblank-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Loading Screen */
+#loadingScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loadingScreen.active {
+    display: flex;
+}
+
+.loading-text {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 30px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading-bar {
+    width: 400px;
+    height: 30px;
+    background: #1a1a1a;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    width: 0%;
+    background: #fff;
+    border-radius: 13px;
+    animation: load 2s forwards;
+}
+
+@keyframes load {
+    to { width: 100%; }
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #0a0a0a;
+    border-right: 2px solid #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    padding: 0 30px;
+    margin-bottom: 40px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.nav-item {
+    padding: 15px 30px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+
+.nav-item:hover:not(.disabled) {
+    background: #1a1a1a;
+    border-left-color: #fff;
+}
+
+.nav-item.active {
+    background: #1a1a1a;
+    border-left-color: #fff;
+}
+
+.nav-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.discord-btn {
+    margin: 20px 30px;
+    padding: 15px;
+    background: #fff;
+    color: #0a0a0a;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.discord-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+/* Home Page */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.clock {
+    font-size: 72px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.home-title {
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.home-time {
+    font-size: 24px;
+    font-weight: 400;
+    color: #999;
+}
+
+/* Games Grid */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 30px;
+}
+
+.game-button {
+    width: 150px;
+    height: 150px;
+    background: #1a1a1a;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    transition: all 0.3s;
+    text-align: center;
+    padding: 15px;
+}
+
+.game-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+}
+
+.game-button .icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+/* Game Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #0a0a0a;
+    border: 2px solid #fff;
+    width: 90%;
+    height: 90%;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.modal-btn {
+    padding: 12px 25px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #1a1a1a;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.modal-btn:hover {
+    background: #fff;
+    color: #0a0a0a;
+}
+
+.game-frame {
+    flex: 1;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    background: #000;
+}
+
+/* Settings Page */
+.settings-container {
+    max-width: 800px;
+}
+
+.settings-title {
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+.settings-section {
+    margin-bottom: 40px;
+}
+
+.settings-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.toggle-setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #1a1a1a;
+    border: 2px solid #fff;
+    border-radius: 10px;
+}
+
+.toggle-setting label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.toggle-switch {
+    width: 60px;
+    height: 30px;
+    background: #333;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toggle-switch.active {
+    background: #fff;
+}
+
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: all 0.3s;
+}
+
+.toggle-switch.active::after {
+    left: 33px;
+    background: #0a0a0a;
+}
+
+.cloak-option {
+    padding: 15px;
+    margin: 10px 0;
+    background: #1a1a1a;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.cloak-option:hover {
+    background: #fff;
+    color: #0a0a0a;
+}
+
+/* 404 Page */
+.notfound-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.notfound-title {
+    font-size: 72px;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+.go-back-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 15px 40px;
+    background: #fff;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.go-back-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
