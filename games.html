@@ -21,7 +21,9 @@
     </div>
 
     <div class="main-content">
-        <div class="games-grid" id="gamesGrid"></div>
+        <div class="games-grid" id="gamesGrid">
+            <!-- Games will be loaded here by JavaScript -->
+        </div>
     </div>
 
     <div class="modal" id="gameModal">
@@ -34,6 +36,110 @@
         </div>
     </div>
 
-    <script src="games-page.js"></script>
+    <script>
+        // All games with their HTML file paths pointing to Old.Zip/sage-vau1t-main/
+        const games = [
+            { id: 1, name: "Baldi's Basics Plus", icon: '🎮', url: 'Old.Zip/sage-vau1t-main/baldis-basics.html' },
+            { id: 2, name: '1v1.lol', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/1v1-lol.html' },
+            { id: 3, name: 'FNAF 1', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/fnaf.html' },
+            { id: 4, name: 'Minecraft 1.12.2', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/minecraft.html' },
+            { id: 5, name: 'Hollow Knight', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/hollow-knight.html' },
+            { id: 6, name: 'FNF', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/fnf.html' },
+            { id: 7, name: 'Basketball Stars', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Basketball Stars.html' },
+            { id: 8, name: 'Cookie Clicker', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Cookie Clicker.html' },
+            { id: 9, name: 'Crazy Cattle 3D', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Crazy Cattle 3D.html' },
+            { id: 10, name: 'Drive Mad', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Drive Mad.html' },
+            { id: 11, name: 'Fallout', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Fallout.html' },
+            { id: 12, name: 'Granny', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Granny.html' },
+            { id: 13, name: 'Gunspin', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Gunspin.html' },
+            { id: 14, name: 'Retro Bowl College', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Retro Bowl College.html' },
+            { id: 15, name: 'Slope', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Slope.html' },
+            { id: 16, name: 'Steal A Brainrot', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Steal A Brainrot.html' },
+            { id: 17, name: 'Subway Surfers London', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Subway Surfers_ London.html' },
+            { id: 18, name: 'Super Mario Bros', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Super Mario Bros.html' },
+            { id: 19, name: 'Time Shooter 3 SWAT', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Time Shooter 3_ SWAT.html' },
+            { id: 20, name: 'Tomb Of The Mask', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Tomb Of The Mask.html' },
+            { id: 21, name: 'BitLife', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/BitLife.html' },
+            { id: 22, name: 'Bloxorz', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Bloxorz.html' },
+            { id: 23, name: 'Crazy Cars', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Crazy Cars.html' },
+            { id: 24, name: 'FNF VS KAPI', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Friday Night Funkin VS. KAPI.html' },
+            { id: 25, name: 'Geometry Dash Lite', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Geometry Dash Lite.html' },
+            { id: 26, name: 'Growden.io', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Growden.io.html' },
+            { id: 27, name: 'Nazi Zombies Portable', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Nazi Zombies_ Portable.html' },
+            { id: 28, name: 'Sandboxels', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Sandboxels.html' },
+            { id: 29, name: 'Sandtris', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Sandtris.html' },
+            { id: 30, name: 'Steal Brainrot Online', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Steal Brainrot Online.html' },
+            { id: 31, name: 'Sandstone', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/sandstone.html' },
+            { id: 32, name: 'Attack Hole', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Attack Hole.html' },
+            { id: 33, name: 'Bacon May Die', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Bacon May Die.html' },
+            { id: 34, name: 'Bank Robbery 2', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Bank Robbery 2.html' },
+            { id: 35, name: 'Basket Random', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Basket Random.html' },
+            { id: 36, name: 'Binding of Isaac', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Binding of Issac_ Wrath of the Lamb.html' },
+            { id: 37, name: 'Crossy Road', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Crossy Road.html' },
+            { id: 38, name: 'DOOM', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/DOOM.html' },
+            { id: 39, name: 'Half Life', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Half Life.html' },
+            { id: 40, name: 'Pixel Gun Survival', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Pixel Gun Survival.html' },
+            { id: 41, name: 'Plants vs Zombies', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Plants vs Zombies.html' },
+            { id: 42, name: 'Solar Smash', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Solar Smash.html' },
+            { id: 43, name: 'Sonic.EXE', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Sonic.EXE (ORIGINAL).html' },
+            { id: 44, name: 'Bad Parenting 1', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Bad Parenting 1.html' },
+            { id: 45, name: 'Bendy and the Ink Machine', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Bendy and the Ink Machine.html' },
+            { id: 46, name: 'Kindergarten', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Kindergarten.html' },
+            { id: 47, name: 'OMORI', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/OMORI.html' },
+            { id: 48, name: 'Sonic Mania', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Sonic Mania.html' },
+            { id: 49, name: 'Soundboard', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Soundboard.html' },
+            { id: 50, name: 'Stickman Hook', icon: '🎮', url: 'Old.Zip/sage-vau1t-main/Stickman Hook.html' }
+        ];
+
+        // Render all games
+        function renderGames() {
+            const grid = document.getElementById('gamesGrid');
+            games.forEach(game => {
+                const button = document.createElement('div');
+                button.className = 'game-button';
+                button.innerHTML = `
+                    <div class="icon">${game.icon}</div>
+                    <div>${game.name}</div>
+                `;
+                button.onclick = () => openGame(game.url, game.name);
+                grid.appendChild(button);
+            });
+        }
+
+        // Open game in modal
+        function openGame(url, name) {
+            if (!url) {
+                alert('No game URL set for ' + name);
+                return;
+            }
+            const modal = document.getElementById('gameModal');
+            const frame = document.getElementById('gameFrame');
+            frame.src = url;
+            modal.classList.add('active');
+        }
+
+        // Close game modal
+        function closeGame() {
+            const modal = document.getElementById('gameModal');
+            const frame = document.getElementById('gameFrame');
+            frame.src = '';
+            modal.classList.remove('active');
+        }
+
+        // Toggle fullscreen
+        function toggleFullscreen() {
+            const frame = document.getElementById('gameFrame');
+            if (!document.fullscreenElement) {
+                frame.requestFullscreen().catch(err => {
+                    alert('Error attempting to enable fullscreen: ' + err.message);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', renderGames);
+    </script>
 </body>
 </html>
