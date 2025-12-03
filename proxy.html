@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy - Sage's Vault</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .proxy-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .proxy-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .proxy-description {
+            font-size: 18px;
+            color: #999;
+            margin-bottom: 40px;
+        }
+
+        .proxy-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .proxy-input {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .proxy-input::placeholder {
+            color: #666;
+        }
+
+        .proxy-button {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .proxy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .quick-link-btn {
+            padding: 15px;
+            background: #1a1a1a;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .quick-link-btn:hover {
+            background: #fff;
+            color: #0a0a0a;
+        }
+
+        .proxy-frame-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+        }
+
+        .proxy-frame-container.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .proxy-controls {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background: #0a0a0a;
+            border-bottom: 2px solid #fff;
+        }
+
+        .proxy-controls button {
+            padding: 10px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            background: #fff;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .proxy-frame {
+            flex: 1;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-title">Sage's Vault</div>
+        <nav class="sidebar-nav">
+            <a href="home.html" class="nav-item">🏠 Home</a>
+            <a href="games.html" class="nav-item">🎮 Games</a>
+            <a href="proxy.html" class="nav-item active">🌐 Proxy</a>
+            <a href="settings.html" class="nav-item">⚙️ Settings</a>
+            <a href="#" class="nav-item disabled">🔒 Coming Soon</a>
+        </nav>
+        <a href="https://discord.gg/NjY6EmHXUR" target="_blank" class="discord-btn">Discord</a>
+    </div>
+
+    <div class="main-content">
+        <div class="proxy-container">
+            <h1 class="proxy-title">Web Proxy</h1>
+            <p class="proxy-description">Access any website through our proxy</p>
+
+            <div class="proxy-input-container">
+                <input type="text" id="proxyUrl" class="proxy-input" placeholder="Enter URL (e.g., google.com)" />
+                <button class="proxy-button" onclick="openProxy()">Go</button>
+            </div>
+
+            <h2 style="color: #fff; font-size: 24px; margin-bottom: 20px;">Quick Links</h2>
+            <div class="quick-links">
+                <button class="quick-link-btn" onclick="openProxyUrl('https://youtube.com')">YouTube</button>
+                <button class="quick-link-btn" onclick="openProxyUrl('https://discord.com')">Discord</button>
+                <button class="quick-link-btn" onclick="openProxyUrl('https://reddit.com')">Reddit</button>
+                <button class="quick-link-btn" onclick="openProxyUrl('https://twitter.com')">Twitter</button>
+                <button class="quick-link-btn" onclick="openProxyUrl('https://tiktok.com')">TikTok</button>
+                <button class="quick-link-btn" onclick="openProxyUrl('https://instagram.com')">Instagram</button>
+                <button class="quick-link-btn" onclick="openProxyUrl('https://netflix.com')">Netflix</button>
+                <button class="quick-link-btn" onclick="openProxyUrl('https://spotify.com')">Spotify</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="proxy-frame-container" id="proxyContainer">
+        <div class="proxy-controls">
+            <button onclick="closeProxy()">Close</button>
+            <button onclick="proxyFullscreen()">Fullscreen</button>
+        </div>
+        <iframe class="proxy-frame" id="proxyFrame" src=""></iframe>
+    </div>
+
+    <script>
+        // Using Rammerhead proxy service
+        const PROXY_URL = 'https://mathway.eu.org/service/hvtrs8%2F-';
+
+        function formatUrl(url) {
+            // Add https:// if not present
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            
+            // Encode URL for Rammerhead
+            const encoded = url.replace(/https?:\/\//, '').split('').map(char => {
+                return char.charCodeAt(0).toString(16).padStart(2, '0');
+            }).join('');
+            
+            return PROXY_URL + encoded;
+        }
+
+        function openProxy() {
+            const input = document.getElementById('proxyUrl');
+            const url = input.value.trim();
+            
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+            
+            openProxyUrl(url);
+        }
+
+        function openProxyUrl(url) {
+            const container = document.getElementById('proxyContainer');
+            const frame = document.getElementById('proxyFrame');
+            
+            const proxyUrl = formatUrl(url);
+            frame.src = proxyUrl;
+            container.classList.add('active');
+        }
+
+        function closeProxy() {
+            const container = document.getElementById('proxyContainer');
+            const frame = document.getElementById('proxyFrame');
+            
+            frame.src = '';
+            container.classList.remove('active');
+        }
+
+        function proxyFullscreen() {
+            const frame = document.getElementById('proxyFrame');
+            if (!document.fullscreenElement) {
+                frame.requestFullscreen().catch(err => {
+                    alert('Error: ' + err.message);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('proxyUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                openProxy();
+            }
+        });
+    </script>
+</body>
+</html>
